@@ -1,0 +1,5 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= link_to_unless_current shout.title, user_shout_path %></h2>
+<h3><i>Written on</i> <%= shout.created_at %></h3>
+<%= simple_format shout.body %>
