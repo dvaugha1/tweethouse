@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tweethouse!!</h1>
+
+<ul>
+	<% @users.each do |user| %>
+	<li>Hey there, <%= user.username %>
+		Actions:
+		<%= link_to "Your shouts", user_shouts_path(user) %> |
+		<%= link_to "Delete Account", user_path(user), method: :delete %>
+	</li>
+	<% end %>
+</ul>
+
+<%= link_to 'Back', :back %> | <%= link_to 'New User', users_new_path %>	
