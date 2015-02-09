@@ -1,0 +1,14 @@
+<%= form_for([@user, @shout]) do |f| %>
+
+<div class="field">
+  <%= f.label 'Title' %><br>
+  <%= f.text_field :title %>
+</div>
+<div class="field">
+  <%= f.label 'Body' %><br>
+  <%= f.text_area :body %>
+</div>
+<div class="actions">
+  <%= f.submit %>
+</div>
+<% end %>
