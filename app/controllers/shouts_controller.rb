@@ -1,6 +1,8 @@
 class ShoutsController < ApplicationController
   before_action :set_shout, only: [:show, :edit, :update, :destroy]
   before_action :set_user
+  before_action :authenticate_user!, :except => [:show, :index, :month]
+  before_action :redirect_unless_user_match, :except => [:show, :index, :month]
 
   def index
     @shouts = Shout.all
@@ -16,7 +18,12 @@ class ShoutsController < ApplicationController
 
   def month
     @shouts = @shouts.user.where("strftime('%Y-%m', created_at) = ?", params[:month])
+    render :index
   end
+
+  def new
+    @shout = Shout.new
+    render :new
 
   def edit
     @shout = Shout.find(params[:id])
@@ -42,7 +49,7 @@ class ShoutsController < ApplicationController
     respond_to do |format|
       if @shout.update(shout_params)
         format.html { redirect_to @shout, notice: 'You changed that shout yo!'}
-        format.json { :show, status: :ok, location: @shout }
+        format.json { render :show, status: :ok, location: @shout }
       else
         format.html { render :edit}
         format.json { render json: @shout.errors, status: :unprocessable_entity }
@@ -70,5 +77,12 @@ class ShoutsController < ApplicationController
 
   def shout_params
     params.require(:shout).permit(:title, :body)
+  end
+
+  def redirect_unless_user_match
+    unless @user == current_user
+      flash[:notice] = "You cannot perform actions on #{@user.username}"
+      redirect_to :root
+    end
   end
 end
