@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user! :only => [:destroy]
+  before_action :authenticate_user!, :only => [:destroy]
 
-	def index 
+	def index
 		@users = User.all
 		render :index
 	end
 
-	def destroy 
+	def destroy
 		@user = User.find(params[:id])
 		if current_user && (current_user.admin? || current_user == @user)
 		  @user.destroy

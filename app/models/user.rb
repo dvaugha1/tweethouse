@@ -15,15 +15,15 @@ class User < ActiveRecord::Base
 	  format: { with: /[a-zA-Z0-9]{4,20}/,
 	  message: "must be between 4 and 20 alphanumerics"}
 
-  def follow(user)
-    self.following.where(:followed_id => user.id).first_or_create!
+  def follow!(user)
+    self.relationships.create!(followed_id: other_user_id)
   end
 
-  def unfollow(user)
-    self.following.where(:followed_id => user.id).destroy!
+  def unfollow!(user)
+    self.relationships.find_by(followed_id: other_user_id).destroy
   end
 
   def follows?(user)
-    self.following.include?(user)
+    self.relationships.find_by(followed_id: other_user_id)
   end
 end

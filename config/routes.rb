@@ -1,13 +1,18 @@
 Rails.application.routes.draw do
   devise_for :users
-  get '/users/new', to: 'users#new'  
+  get '/users/new', to: 'users#new'
   put '/users', to: 'users#create'
-  
+
   root to: "users#index"
   resources :users, :only => [:destroy, :index] do
     resources :shouts
     get '/month/:month', to: 'shouts#month', as: 'month'
+
   end
+
+  get 'users/:user_id/followers', to: 'users#followers'
+  put 'users/:user_id/followers', to: 'users#follow', as: 'add_new_follower'
+  delete 'users/:user_id/followers', to: 'users#unfollow', as: 'delete_follower'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
