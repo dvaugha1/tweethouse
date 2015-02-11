@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user! :only => [:destroy]
+
 	def index 
 		@users = User.all
 		render :index
@@ -6,8 +8,13 @@ class UsersController < ApplicationController
 
 	def destroy 
 		@user = User.find(params[:id])
-		@user.destroy
-		redirect_to users_path, notice: "User was deleted."
+		if current_user && (current_user.admin? || current_user == @user)
+		  @user.destroy
+		  redirect_to users_path, notice: "User was deleted."
+		else
+			flash[:alert] = "You are only allowed to delete your own account."
+			redirect_to :root
+		end
 	end
 
 	def new
