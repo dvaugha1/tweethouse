@@ -24,6 +24,7 @@ class ShoutsController < ApplicationController
   def new
     @shout = Shout.new
     render :new
+  end
 
   def edit
     @shout = Shout.find(params[:id])
