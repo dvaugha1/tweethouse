@@ -9,8 +9,8 @@
 50.times do |user|
   User.create(
   {
-    username: Faker::Internet.name
-    email: Faker::Internet.email
+    username: Faker::Internet.name,
+    email: Faker::Internet.email,
     password: 'password'
-
   })
+end

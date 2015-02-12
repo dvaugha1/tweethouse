@@ -3,8 +3,9 @@
 <h2>These are your followers</h2>
 
 <ul>
-<%= @users.followers.each do |followers| %>
+<%= current_user.followers.each do |x| %>
 <li>
+  <%= x.username %>
 </li>
 <% end %>
 <ul>
