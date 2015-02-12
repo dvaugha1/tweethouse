@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>ShoutHouse!!</h1>
 
 <h2>Welcome</h2>
@@ -9,9 +7,9 @@
   <li>Hey there, <%= user.username %>
     Actions:
     <%= link_to "Your shouts", user_shouts_path(user) %> |
-    <%= link_to "Delete Account", user_path(user), method: :delete %>
+    <%= link_to "Delete Account", user_path(user), method: :delete %> 
   </li>
   <% end %>
 </ul>
 
-<%= link_to 'Back', :back %> | <%= link_to 'New User', root_path %> 
+<%= link_to 'Back', :back %> | <%= link_to 'New User', new_user_registration_path %> | <%= link_to 'Login', new_user_session_path %>
