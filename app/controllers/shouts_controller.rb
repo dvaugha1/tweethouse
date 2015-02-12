@@ -5,7 +5,7 @@ class ShoutsController < ApplicationController
   before_action :redirect_unless_user_match, :except => [:show, :index, :month]
 
   def index
-    @shouts = Shout.all
+    @shouts = @user.shouts
   end
 
   def show
@@ -24,6 +24,7 @@ class ShoutsController < ApplicationController
   def new
     @shout = Shout.new
     render :new
+  end
 
   def edit
     @shout = Shout.find(params[:id])
@@ -36,7 +37,7 @@ class ShoutsController < ApplicationController
 
     respond_to do |format|
       if @shout.save
-        format.html { redirect_to [@user, @shout], notice: 'You shouted out!' }
+        format.html { redirect_to user_shouts_path, notice: 'You shouted out!' }
         format.json { render :show, status: :created, location: [@user, @shout] }
       else
         format.html { render :new }
@@ -68,7 +69,7 @@ class ShoutsController < ApplicationController
   private
 
   def set_shout
-    @shout = Shout.find(params[:user_id])
+    @shout = Shout.find(params[:id])
   end
 
   def set_user

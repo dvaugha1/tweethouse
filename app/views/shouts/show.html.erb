@@ -1,6 +1,7 @@
 <p class="notice"><%= notice %></p>
 
-<%= render "shout", shout: @shout %>
+<%= render 'shout' %>
+
 
 <%= link_to 'Edit', edit_user_shout_path(@user, @shout) %> |
 <%= link_to 'Back', user_shouts_path(@user) %>
