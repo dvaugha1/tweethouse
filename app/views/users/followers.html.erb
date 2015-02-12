@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<h2>These are your followers</h2>
+
+<ul>
+<%= current_user.followers.each do |x| %>
+<li>
+  <%= x.username %>
+</li>
+<% end %>
+<ul>
