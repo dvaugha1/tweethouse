@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   :recoverable, :rememberable, :trackable, :validatable
   has_many :posts
 
+
   has_many :relationships, foreign_key: "follower_id"
   has_many :following, through: :relationships, source: :followed
 
@@ -49,4 +50,7 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
     self.relationships.find_by(followed_id: other_user.id).destroy
   end
+
+
+
 end
